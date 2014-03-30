@@ -1,0 +1,9 @@
+post:
+    resource: "@KenBlogBundle/Controller/DefaultController.php"
+    type:     annotation
+#blog_home:
+    #pattern:  /
+    #defaults: { _controller: KenBlogBundle:Default:index }
+#ken_blog_homepage:
+    #pattern:  /hello/{name}
+    #defaults: { _controller: KenBlogBundle:Default:hello }

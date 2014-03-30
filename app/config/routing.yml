@@ -1,0 +1,4 @@
+ken_blog:
+    resource: "@KenBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+

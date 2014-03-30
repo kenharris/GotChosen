@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div style="float: left; width: 55%; padding-right: 25px;">
+   <h3>Add Post</h3>
+   <form method="post" action="/post/add">
+      Post Title: <input type="text" name="title" /><br />
+      Post Content: <br />
+      <textarea name="content" cols="50" rows="10"></textarea>
+      <br /><br />
+      Author:
+      <select name="author">
+         {% for author in authors %}
+         <option value="{{author.id}}">{{author.name}}</option>
+         {% endfor %}
+      </select>
+      <br /><br />
+      Tags:<br />
+      {% for tag in tags %}
+         <input type="checkbox" name="tags[]" value="{{tag.id}}" id="tag_{{tag.id}}" /> <label for="tag_{{tag.id}}">{{tag.tag}}</label>
+      {% endfor %}
+      <br /><br />
+      <input type="submit" value="Add Post" />
+   </form>
+
+   <h2>Blog Posts</h2>
+   {% for post in posts %}
+   <div style="margin-bottom: 25px; border: solid thin black;">
+      <a href="/post/{{ post.getId() }}">{{ post.getTitle() }}</a><br />
+      <br />
+      Posted by: {{ post.getAuthor().getName() }} at {{ post.getDate()|date("Y/m/d h:i:s") }}
+      <br /><br />
+      Tags:
+      {% for tag in post.getTags() %}
+      {% if loop.last %}
+      {{ tag.tag }}
+      {% else %}
+      {{ tag.tag }}, 
+      {% endif %}
+      {% endfor %}
+   </div>
+   {% endfor %}
+</div>
+<div style="float: left; width: 40%;">
+   <h2>Authors</h2>
+   {% for author in authors %}
+      {{ author.name }}<br />
+   {% endfor %}
+
+   <h3>Add an author</h3>
+   <form method="post" action="/author/add">
+      Author Name: <input type="text" name="name" />
+      <br />
+      <input type="submit" value="Add Author" />
+   </form>
+
+   <h2>Tags</h2>
+   {% for tag in tags %}
+      {{ tag.tag }}<br />
+   {% endfor %}
+
+   <h3>Add a tag</h3>
+   <form method="post" action="/tag/add">
+      Tag: <input type="text" name="tag" />
+      <br />
+      <input type="submit" value="Add Tag" />
+   </form>
+</div>
+</div>
+{% endblock %}
