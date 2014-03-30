@@ -48,3 +48,5 @@ Stack trace:
 [29-Mar-2014 04:27:23 UTC] PHP Fatal error:  Class 'Ken\BlogBundle\Controller\ArrayCollection' not found in /home/amandalh/ken/src/Ken/BlogBundle/Controller/DefaultController.php on line 118
 [30-Mar-2014 00:06:33 UTC] PHP Fatal error:  Call to a member function getTags() on a non-object in /home/amandalh/ken/src/Ken/BlogBundle/Controller/DefaultController.php on line 38
 [30-Mar-2014 00:07:51 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/amandalh/ken/src/Ken/BlogBundle/Controller/DefaultController.php on line 41
+[30-Mar-2014 01:02:32 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 72 bytes) in /home/amandalh/ken/vendor/symfony/symfony/src/Symfony/Component/Serializer/Normalizer/GetSetMethodNormalizer.php on line 203
+[30-Mar-2014 01:04:37 UTC] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 130968 bytes) in /home/amandalh/ken/vendor/symfony/symfony/src/Symfony/Component/Serializer/Serializer.php on line 148

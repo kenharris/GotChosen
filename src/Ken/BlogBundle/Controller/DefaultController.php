@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
 use Ken\BlogBundle\Entity\Post;
 use Ken\BlogBundle\Entity\Author;
 use Ken\BlogBundle\Entity\Tag;
@@ -131,5 +136,27 @@ class DefaultController extends Controller
 
           return $this->redirect('/');
        }
+    }
+
+    /**
+     * @Route("/ajax/posts")
+     */
+    public function ajaxPostsAction()
+    {
+       $query = $this->getDoctrine()
+           ->getRepository('KenBlogBundle:Post')
+           ->createQueryBuilder('p')
+           ->orderBy('p.date', 'DESC')
+           ->getQuery();
+       $posts = $query->getResult();
+
+       $encoders = array(new XmlEncoder(), new JsonEncoder());
+       $normalizers = array(new GetSetMethodNormalizer());
+
+       $serializer = new Serializer($normalizers, $encoders);
+
+       $jsonContent = $serializer->serialize($posts, 'json');
+var_dump($jsonContent);
+die('here');
     }
 }
