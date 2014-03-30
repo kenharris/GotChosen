@@ -36,7 +36,7 @@
       <img src="/images/ajax-loader.gif" style="display: none;" class="throbber" />
       {% for post in posts %}
       <div style="margin-bottom: 25px; border: solid thin black;">
-         <a href="/post/{{ post.getId() }}">{{ post.getTitle() }}</a><br />
+         <a href="/ajax/content/{{ post.getId() }}" class="post-content">{{ post.getTitle() }}</a><br />
          <br />
          Posted by: {{ post.getAuthor().getName() }} at {{ post.getDate()|date("Y/m/d h:i:s") }}
          <br /><br />

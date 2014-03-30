@@ -1,6 +1,5 @@
 jQuery(function($) {
    $.ajaxSetup({
-       // Disable caching of AJAX responses
        cache: false
    });
 
@@ -19,7 +18,8 @@ jQuery(function($) {
   
             $blogpost = $('<div style="margin-bottom: 25px; border: solid thin black;">');
 	    $titleanchor = $('<a>')
-	                   .attr('href', '/post/' + post.id)
+	                   .attr('href', '/ajax/content/' + post.id)
+	                   .addClass('post-content')
 			   .html(post.title);
 	    $blogpost.append($titleanchor);
   
@@ -44,20 +44,20 @@ jQuery(function($) {
          }
       }, 'json');
    });
-/*
-      <div style="margin-bottom: 25px; border: solid thin black;">
-         <a href="/post/{{ post.getId() }}">{{ post.getTitle() }}</a><br />
-         <br />
-         Posted by: {{ post.getAuthor().getName() }} at {{ post.getDate()|date("Y/m/d h:i:s") }}
-         <br /><br />
-         Tags:
-         {% for tag in post.getTags() %}
-         {% if loop.last %}
-         {{ tag.tag }}
-         {% else %}
-         {{ tag.tag }},
-         {% endif %}
-         {% endfor %}
-      </div>
-*/
+
+   $('a.post-content').click(function(e) {
+      e.preventDefault();
+
+      $container = $(this).parent('div');
+      $container.find('blockquote').remove();
+      console.log($container);
+      $container.append($('<div class="throbber" style="margin-top: 25px;"><img src="/images/ajax-loader.gif" /></div>'));
+
+      var target = $(this).attr('href');
+      $.get( target, function( data ) {
+         console.log(data.content);
+	 $container.append($('<blockquote>' + data.content + '</blockquote>'));
+	 $container.find('.throbber').remove();
+      }, 'json');
+   });
 });

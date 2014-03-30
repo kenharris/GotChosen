@@ -153,4 +153,20 @@ class DefaultController extends Controller
        $json = $serializer->serialize($posts, 'json');
        return new Response($json);
     }
+
+    /**
+     * @Route("/ajax/content/{id}", requirements={"id" = "\d+"}, defaults={"id" = 1})
+     */
+    public function ajaxPostContentAction($id)
+    {
+       sleep(1);
+
+       $post = $this->getDoctrine()
+           ->getRepository('KenBlogBundle:Post')
+	   ->find($id);
+
+       $serializer = SerializerBuilder::create()->build();
+       $json = $serializer->serialize($post, 'json');
+       return new Response($json);
+    }
 }
