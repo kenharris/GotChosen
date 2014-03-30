@@ -91,4 +91,13 @@ class Author
     {
         return $this->created;
     }
+
+    public function jsonSerialize()
+    {
+       return array(
+          'id' => $this->id,
+          'name' => $this->name,
+          'created' => $this->created,
+       );
+    }
 }

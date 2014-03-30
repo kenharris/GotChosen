@@ -3,22 +3,20 @@
 namespace Ken\BlogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-
 use Ken\BlogBundle\Entity\Post;
 use Ken\BlogBundle\Entity\Author;
 use Ken\BlogBundle\Entity\Tag;
 
 use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
+use JMS\Serializer\SerializerBuilder as SerializerBuilder;
 
 /**
  * @Route("/")
@@ -150,13 +148,8 @@ class DefaultController extends Controller
            ->getQuery();
        $posts = $query->getResult();
 
-       $encoders = array(new XmlEncoder(), new JsonEncoder());
-       $normalizers = array(new GetSetMethodNormalizer());
-
-       $serializer = new Serializer($normalizers, $encoders);
-
-       $jsonContent = $serializer->serialize($posts, 'json');
-var_dump($jsonContent);
-die('here');
+       $serializer = SerializerBuilder::create()->build();
+       $json = $serializer->serialize($posts, 'json');
+       return new JsonResponse($json);
     }
 }

@@ -94,4 +94,12 @@ class Tag
     {
         return $this->posts;
     }
+
+    public function jsonSerialize()
+    {
+       return array(
+          'id' => $this->id,
+          'tag' => $this->tag,
+       );
+    }
 }

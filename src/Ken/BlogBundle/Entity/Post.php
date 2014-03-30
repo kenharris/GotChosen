@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Post
+class Post 
 {
     /**
      * @var integer
@@ -184,5 +184,17 @@ class Post
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function jsonSerialize()
+    {
+       return array(
+          'id' => $this->id,
+	  'title' => $this->title,
+	  'content' => $this->content,
+	  'date' => date($this->date),
+	  'author' => json_serialize($this->author->jsonSerialize()),
+	  'tags' => json_serialize(array_map("json_serialize", $this->tags)),
+       );
     }
 }
