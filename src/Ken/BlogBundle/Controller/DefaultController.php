@@ -4,7 +4,6 @@ namespace Ken\BlogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -141,6 +140,8 @@ class DefaultController extends Controller
      */
     public function ajaxPostsAction()
     {
+       sleep(1);
+
        $query = $this->getDoctrine()
            ->getRepository('KenBlogBundle:Post')
            ->createQueryBuilder('p')
@@ -150,6 +151,6 @@ class DefaultController extends Controller
 
        $serializer = SerializerBuilder::create()->build();
        $json = $serializer->serialize($posts, 'json');
-       return new JsonResponse($json);
+       return new Response($json);
     }
 }

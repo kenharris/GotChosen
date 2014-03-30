@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="{{ asset("js/gotchosen.js") }}"></script>
+{% endblock %}
+
 {% block body %}
 <div style="float: left; width: 55%; padding-right: 25px;">
    <h3>Add Post</h3>
@@ -24,22 +29,28 @@
    </form>
 
    <h2>Blog Posts</h2>
-   {% for post in posts %}
-   <div style="margin-bottom: 25px; border: solid thin black;">
-      <a href="/post/{{ post.getId() }}">{{ post.getTitle() }}</a><br />
-      <br />
-      Posted by: {{ post.getAuthor().getName() }} at {{ post.getDate()|date("Y/m/d h:i:s") }}
-      <br /><br />
-      Tags:
-      {% for tag in post.getTags() %}
-      {% if loop.last %}
-      {{ tag.tag }}
-      {% else %}
-      {{ tag.tag }}, 
-      {% endif %}
+   <a href="javascript:void(0);" id="reload-posts">Click to reload posts</a>
+   <br /><br />
+
+   <div id="blogs">
+      <img src="/images/ajax-loader.gif" style="display: none;" class="throbber" />
+      {% for post in posts %}
+      <div style="margin-bottom: 25px; border: solid thin black;">
+         <a href="/post/{{ post.getId() }}">{{ post.getTitle() }}</a><br />
+         <br />
+         Posted by: {{ post.getAuthor().getName() }} at {{ post.getDate()|date("Y/m/d h:i:s") }}
+         <br /><br />
+         Tags:
+         {% for tag in post.getTags() %}
+         {% if loop.last %}
+         {{ tag.tag }}
+         {% else %}
+         {{ tag.tag }}, 
+         {% endif %}
+         {% endfor %}
+      </div>
       {% endfor %}
    </div>
-   {% endfor %}
 </div>
 <div style="float: left; width: 40%;">
    <h2>Authors</h2>

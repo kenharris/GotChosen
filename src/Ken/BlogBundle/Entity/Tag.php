@@ -5,6 +5,8 @@ namespace Ken\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use JMS\Serializer\Annotation\Exclude;
+
 /**
  * Tag
  *
@@ -32,6 +34,7 @@ class Tag
 
     /**
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
+     * @Exclude()
      **/
     private $posts;
 
