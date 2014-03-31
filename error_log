@@ -1,3 +1,0 @@
-[29-Mar-2014 03:51:16 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home/amandalh/ken/src/Ken/BlogBundle/Controller/DefaultController.php on line 29
-[29-Mar-2014 04:03:23 UTC] PHP Fatal error:  Cannot redeclare Ken\BlogBundle\Controller\DefaultController::addAuthorAction() in /home/amandalh/ken/src/Ken/BlogBundle/Controller/DefaultController.php on line 77
-[30-Mar-2014 01:11:18 UTC] PHP Fatal error:  Class 'Acme\DemoBundle\AcmeDemoBundle' not found in /home/amandalh/ken/app/AppKernel.php on line 23
